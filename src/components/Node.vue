@@ -2,7 +2,7 @@
   <div class="node vertical">
     <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }">
     </div>
-    <div v-if="datasource.showKeyName || showKeyName" class="mdl-card__title">
+    <div v-if="datasource.showKeyName" class="mdl-card__title" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}">
       <h4 class="mdl-card__title-text">{{ node.name }}</h4>
     </div>
   </div>
@@ -10,13 +10,16 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import * as Vibrant from 'node-vibrant'
 
   export default {
     data: function () {
       return {
+        backgroundColor: 'none',
+        foregroundColor: 'black'
       }
     },
-    props: [ 'baseUrl', 'node', 'showKeyName' ],
+    props: [ 'baseUrl', 'node' ],
     methods: {
       // Get the icon
       getImage: function () {
@@ -31,6 +34,19 @@
       ...mapGetters([
         'datasource'
       ])
+    },
+    mounted: function () {
+      var vm = this
+      Vibrant.from(this.getImage())
+        .getPalette(function (err, palette) {
+          if (err) {
+            console.log(err.stack)
+          }
+
+          vm.backgroundColor = palette.Vibrant.getHex()
+          var avg = (palette.Vibrant.r + palette.Vibrant.g + palette.Vibrant.b) / 3
+          vm.foregroundColor = avg < 128 ? 'white' : 'black'
+        })
     }
   }
 </script>
@@ -45,5 +61,10 @@
   }
   .node.vertical .mdl-card__media {
     height: 256px;
+  }
+  .mdl-card__title-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

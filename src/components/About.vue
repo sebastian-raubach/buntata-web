@@ -48,7 +48,7 @@
               group: 'Information & Computational Sciences',
               name: 'The James Hutton Institute'
             },
-            img: '/static/img/sebastian-raubach.jpg'
+            img: './static/img/sebastian-raubach.jpg'
           },
           {
             name: 'Paul Shaw',
@@ -58,7 +58,7 @@
               group: 'Information & Computational Sciences',
               name: 'The James Hutton Institute'
             },
-            img: '/static/img/paul-shaw.jpg'
+            img: './static/img/paul-shaw.jpg'
           },
           {
             name: 'Lesley Torrance',
@@ -68,28 +68,28 @@
               group: 'Cell & Molecular Sciences',
               name: 'The James Hutton Institute'
             },
-            img: '/static/img/lesley-torrance.jpg'
+            img: './static/img/lesley-torrance.jpg'
           }
         ],
         acknowledgements: [
           {
-            logo: '/static/img/acknowledgements/jhi.svg',
+            logo: './static/img/acknowledgements/jhi.svg',
             name: 'The James Hutton Institute'
           },
           {
-            logo: '/static/img/acknowledgements/uosa.svg',
+            logo: './static/img/acknowledgements/uosa.svg',
             name: 'University of St Andrews'
           },
           {
-            logo: '/static/img/acknowledgements/bbsrc.svg',
+            logo: './static/img/acknowledgements/bbsrc.svg',
             name: 'Biotechnology and Biological Sciences Research Council'
           },
           {
-            logo: '/static/img/acknowledgements/ahdb.png',
+            logo: './static/img/acknowledgements/ahdb.png',
             name: 'Agriculture & Horticulture Development Board'
           },
           {
-            logo: '/static/img/acknowledgements/scottish-government.svg',
+            logo: './static/img/acknowledgements/scottish-government.svg',
             name: 'Rural and Environment Science and Analytical Services Devision of the Scottish Government'
           }
         ]

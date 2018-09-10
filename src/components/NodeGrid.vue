@@ -5,10 +5,11 @@
       <h2 class="header" v-if="datasource">{{ datasource.name }}</h2>
       <h2 class="header" v-else>No data source selected</h2>
       <h4 v-if="searchTerm">Searching for: '{{ searchTerm }}'</h4>
+      <h5>Select the item that you want to investigate.</h5>
     </div>
     <ul class="mdl-grid nodes">
       <a class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--3dp" v-if="nodes" v-for="node in nodes" :key="node.id">
-        <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+        <node :node="node" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
       </a>
     </ul>
   </div>
@@ -108,7 +109,12 @@
       if (!this.datasource) {
         this.$router.push('/datasource')
       } else {
-        this.update()
+        var vm = this
+        this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.datasource.id, function (data) {
+          console.log(data[0])
+          vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
+          vm.update()
+        })
       }
     }
   }

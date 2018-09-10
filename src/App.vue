@@ -4,7 +4,7 @@
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Buntata</span>
         <div class="android-header-spacer mdl-layout-spacer"></div>
-        <form v-show="['nodegrid'].indexOf($route.name) > -1" v-on:submit.prevent="onSearchClicked()">
+        <!-- <form v-show="['nodegrid'].indexOf($route.name) > -1" v-on:submit.prevent="onSearchClicked()">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
@@ -14,7 +14,7 @@
               <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
             </div>
           </div>
-        </form>
+        </form> -->
       </div>
     </header>
     <div class="mdl-layout__drawer">
@@ -33,13 +33,31 @@
       <div class="page-content">
         <router-view></router-view>
       </div>
+      <footer class="mdl-mini-footer footer">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo">
+            &copy; {{ new Date().getFullYear() }}
+          </div>
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="http://www.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/jhi-white.svg`)"></a></li>
+            <li><a href="https://ics.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/ics-sdg-white.svg`)"></a></li>
+          </ul>
+        </div>
+        <div class="mdl-mini-footer__right-section">
+          <button class="mdl-mini-footer__social-btn social email" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon/></button>
+          <button class="mdl-mini-footer__social-btn social twitter" v-on:click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon/></button>
+        </div>
+      </footer>
     </main>
+    
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   require('material-design-lite')
+  require('mdi-vue/TwitterIcon')
+  require('mdi-vue/EmailIcon')
 
   global.jQuery = require('jquery')
   var $ = global.jQuery
@@ -54,6 +72,13 @@
       },
       onSearchClicked: function () {
         this.$store.dispatch('ON_SEARCH_TERM_CHANGED', this.$refs.searchTerm.value)
+      },
+      open: function (url, newTab) {
+        if (newTab) {
+          window.open(url, '_blank')
+        } else {
+          window.location = url
+        }
       }
     },
     computed: {
@@ -85,5 +110,36 @@
   }
   .mdl-layout__drawer {
     border-right: 0 !important;
+  }
+  .page-content {
+    min-height: calc(100vh - 64px);
+  }
+  .footer {
+    padding: 12px 24px !important;
+  }
+  .mdl-mini-footer__right-section {
+    padding: 4px 0;
+  }
+  .mdl-mini-footer__social-btn.social {
+    height: 42px;
+    width: 42px;
+  }
+  .social:hover {
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+  }
+  .twitter:hover {
+    background-color: #1DA1F2;
+  }
+  .email:hover {
+    background-color: #c71610;
+  }
+  .logo {
+    height: 50px;
+    width: auto;
+    margin: auto;
+  }
+  .mdl-mini-footer .mdl-logo {
+    line-height: 50px !important;
   }
 </style>

@@ -8,7 +8,7 @@ import About from '@/components/About'
 
 Vue.use(Router)
 
-// const baseUrl = 'http://wildcat-dev.hutton.ac.uk:8080/buntata/vX.X/'
+// const baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
 const baseUrl = 'http://localhost:8080/buntata/v1.1/'
 
 export default new Router({
