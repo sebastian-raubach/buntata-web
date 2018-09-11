@@ -37,16 +37,18 @@
     },
     mounted: function () {
       var vm = this
-      Vibrant.from(this.getImage())
-        .getPalette(function (err, palette) {
-          if (err) {
-            console.log(err.stack)
-          }
-
-          vm.backgroundColor = palette.Vibrant.getHex()
-          var avg = (palette.Vibrant.r + palette.Vibrant.g + palette.Vibrant.b) / 3
-          vm.foregroundColor = avg < 128 ? 'white' : 'black'
-        })
+      if (this.datasource.showKeyName || this.showKeyName) {
+        Vibrant.from(this.getImage())
+          .getPalette(function (err, palette) {
+            if (err) {
+              console.log(err.stack)
+            } else {
+              vm.backgroundColor = palette.Vibrant.getHex()
+              var avg = (palette.Vibrant.r + palette.Vibrant.g + palette.Vibrant.b) / 3
+              vm.foregroundColor = avg < 128 ? 'white' : 'black'
+            }
+          })
+      }
     }
   }
 </script>

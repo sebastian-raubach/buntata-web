@@ -8,8 +8,13 @@ import About from '@/components/About'
 
 Vue.use(Router)
 
-// const baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
-const baseUrl = 'http://localhost:8080/buntata/v1.1/'
+var baseUrl
+
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = 'http://localhost:8080/buntata/v1.1/'
+} else {
+  baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
+}
 
 export default new Router({
   routes: [

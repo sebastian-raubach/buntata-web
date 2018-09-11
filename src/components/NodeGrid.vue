@@ -111,7 +111,6 @@
       } else {
         var vm = this
         this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.datasource.id, function (data) {
-          console.log(data[0])
           vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
           vm.update()
         })
