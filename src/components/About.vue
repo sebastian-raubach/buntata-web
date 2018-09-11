@@ -5,6 +5,22 @@
       <p>Buntata is an app which aids in the identification of plant disease and pathogens and offers information to
 		farmers where they can go to get more details about any pests. It provides downloadable datasets allowing users to use the application in the
 		field without the need of a mobile signal.</p><p>This first release focusses on potato pests and diseases, but Buntata can easily be adapted for any crop system.</p><p>We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.</p>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)">
+        <mdi-google-play-icon/>
+        Google Play
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://ics.hutton.ac.uk/get-buntata', true)">
+        <mdi-earth-icon/>
+        Website
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')">
+        <mdi-email-icon/>
+        Email
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://twitter.com/BuntataApp', true)">
+        <mdi-twitter-icon/>
+        Twitter
+      </button>
       <h3>Team</h3>
     </div>
     <div class="mdl-grid">
@@ -32,10 +48,19 @@
         </div>
       </div>
     </div>
+    <div id='banner' />
   </div>
 </template>
 
 <script>
+  require('mdi-vue/GooglePlayIcon')
+  require('mdi-vue/EarthIcon')
+  require('mdi-vue/EmailIcon')
+  require('mdi-vue/TwitterIcon')
+
+  require('../assets/js/hutton-banner.js')
+  require('../assets/css/hutton-banner.css')
+
   export default {
     data: function () {
       return {
@@ -94,6 +119,18 @@
           }
         ]
       }
+    },
+    methods: {
+      open: function (url, newTab) {
+        if (newTab) {
+          window.open(url, '_blank')
+        } else {
+          window.location = url
+        }
+      }
+    },
+    mounted: function () {
+      this.$jQuery('#banner').huttonBanner()
     }
   }
 </script>

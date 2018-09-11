@@ -23,10 +23,10 @@
         <p>Buntata</p>
       </div>
       <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/datasource" @click.native="hideMenu">Datasources</router-link>
-        <router-link class="mdl-navigation__link" to="/catalogue" @click.native="hideMenu">Catalogue</router-link>
-        <router-link class="mdl-navigation__link" to="/about" @click.native="hideMenu">About</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu"><mdi-home-icon/> Home</router-link>
+        <router-link class="mdl-navigation__link" to="/datasource" @click.native="hideMenu"><mdi-server-icon/> Datasources</router-link>
+        <router-link class="mdl-navigation__link" to="/catalogue" @click.native="hideMenu"><mdi-book-open-icon/> Catalogue</router-link>
+        <router-link class="mdl-navigation__link" to="/about" @click.native="hideMenu"><mdi-information-icon/> About</router-link>
       </nav>
     </div>
     <main class="mdl-layout__content">
@@ -44,6 +44,7 @@
           </ul>
         </div>
         <div class="mdl-mini-footer__right-section">
+          <button class="mdl-mini-footer__social-btn social website" v-on:click="open('https://ics.hutton.ac.uk/get-buntata')"><mdi-earth-icon/></button>
           <button class="mdl-mini-footer__social-btn social email" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon/></button>
           <button class="mdl-mini-footer__social-btn social twitter" v-on:click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon/></button>
         </div>
@@ -58,6 +59,11 @@
   require('material-design-lite')
   require('mdi-vue/TwitterIcon')
   require('mdi-vue/EmailIcon')
+  require('mdi-vue/EarthIcon')
+  require('mdi-vue/HomeIcon')
+  require('mdi-vue/InformationIcon')
+  require('mdi-vue/BookOpenIcon')
+  require('mdi-vue/ServerIcon')
 
   global.jQuery = require('jquery')
   var $ = global.jQuery
@@ -133,6 +139,9 @@
   }
   .email:hover {
     background-color: #c71610;
+  }
+  .website:hover {
+    background-color: #4caf50;
   }
   .logo {
     height: 50px;

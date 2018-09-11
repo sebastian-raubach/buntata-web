@@ -2,7 +2,7 @@
   <div class="node vertical">
     <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }">
     </div>
-    <div v-if="datasource.showKeyName" class="mdl-card__title" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}">
+    <div v-if="datasource.showKeyName || showKeyName" class="mdl-card__title" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}">
       <h4 class="mdl-card__title-text">{{ node.name }}</h4>
     </div>
   </div>
@@ -19,7 +19,7 @@
         foregroundColor: 'black'
       }
     },
-    props: [ 'baseUrl', 'node' ],
+    props: [ 'baseUrl', 'node', 'showKeyName' ],
     methods: {
       // Get the icon
       getImage: function () {

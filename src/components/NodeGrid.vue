@@ -9,7 +9,7 @@
     </div>
     <ul class="mdl-grid nodes">
       <a class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--3dp" v-if="nodes" v-for="node in nodes" :key="node.id">
-        <node :node="node" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+        <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
       </a>
     </ul>
   </div>
