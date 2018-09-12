@@ -2,7 +2,7 @@
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Buntata</span>
+        <span class="mdl-layout-title"><router-link to="/" class="title">Buntata</router-link></span>
         <div class="android-header-spacer mdl-layout-spacer"></div>
         <!-- <form v-show="['nodegrid'].indexOf($route.name) > -1" v-on:submit.prevent="onSearchClicked()">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -31,7 +31,7 @@
     </div>
     <main class="mdl-layout__content">
       <div class="page-content">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </div>
       <footer class="mdl-mini-footer footer">
         <div class="mdl-mini-footer__left-section">
@@ -150,5 +150,10 @@
   }
   .mdl-mini-footer .mdl-logo {
     line-height: 50px !important;
+  }
+  .title {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit;
   }
 </style>

@@ -19,12 +19,6 @@ if (process.env.NODE_ENV === 'development') {
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'nodegrid',
-      component: NodeGrid,
-      props: { baseUrl: baseUrl }
-    },
-    {
       path: '/datasource',
       name: 'datasource',
       component: DatasourceGrid,
@@ -47,6 +41,23 @@ export default new Router({
       name: 'about',
       component: About,
       props: { baseUrl: baseUrl }
+    },
+    {
+      path: '/',
+      name: 'nodegrid',
+      component: NodeGrid,
+      props: { baseUrl: baseUrl }
+    },
+    {
+      path: '/:parent_id',
+      name: 'nodegrid-with-parent',
+      component: NodeGrid,
+      props: { baseUrl: baseUrl }
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    console.log(from, to)
+    window.$('.mdl-layout__content').scrollTop(0)
+    return null
+  }
 })

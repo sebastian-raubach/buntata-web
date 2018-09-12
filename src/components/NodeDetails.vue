@@ -31,6 +31,7 @@
           </div>
         </div>
       </div>
+      <h2 v-else>No data found</h2>
     </div>
     <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
   </div>

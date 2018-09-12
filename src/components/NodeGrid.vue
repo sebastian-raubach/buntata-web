@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header-container">
-      <button v-if="nodeParentIds.length > 0" class="mdl-button mdl-button--fab mdl-button--colored mdl-shadow--6dp" @click="back()"><i class="material-icons">arrow_back</i></button>
+      <button v-if="nodeId" class="mdl-button mdl-button--fab mdl-button--colored mdl-shadow--6dp" @click="back()"><i class="material-icons">home</i></button>
       <h2 class="header" v-if="datasource">{{ datasource.name }}</h2>
       <h2 class="header" v-else>No data source selected</h2>
       <h4 v-if="searchTerm">Searching for: '{{ searchTerm }}'</h4>
@@ -24,7 +24,7 @@
       return {
         nodes: null,
         nodesUnfiltered: [],
-        nodeParentIds: []
+        nodeId: null
       }
     },
     components: {
@@ -45,8 +45,7 @@
     methods: {
       // On back press, pop last visited item from stack
       back: function () {
-        this.nodeParentIds.pop()
-        this.update()
+        this.$router.push('/')
       },
       // Search for a specific term. TODO: search children as well
       search: function (searchTerm) {
@@ -60,8 +59,7 @@
       },
       // Go to the next level
       onNodeClicked: function (node) {
-        this.nodeParentIds.push(node.id)
-        this.update()
+        this.$router.push('/' + node.id)
       },
       update: function () {
         // Load the data from the server
@@ -69,24 +67,25 @@
           var vm = this
           var url
 
-          var nodeId = this.nodeParentIds[this.nodeParentIds.length - 1]
+          this.nodeId = this.$route.params.parent_id
 
           // If there is no parent, show the root nodes, else get children of the parent
-          if (this.nodeParentIds.length === 0) {
+          if (!this.nodeId) {
             url = this.baseUrl + 'datasource/' + this.datasource.id + '/nodes/?type=root'
           } else {
-            url = this.baseUrl + 'node/?nodeParentId=' + nodeId
+            url = this.baseUrl + 'node/?nodeParentId=' + this.nodeId
           }
 
           // Request the data
           this.$jQuery.getJSON(url, function (data) {
+            console.log(data)
             if (data.length === 1) {
-              vm.$router.push('/detail/' + data[0].id)
+              vm.$router.replace('/detail/' + data[0].id)
             } else if (data.length === 0) {
-              vm.$router.push('/detail/' + nodeId)
+              vm.$router.replace('/detail/' + this.nodeId)
             } else {
               // Sort them based on their name
-              if (vm.nodeParentIds.length > 0) {
+              if (this.nodeId) {
                 data.sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1
