@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <div class="header-container">
-      <button v-if="nodeId" class="mdl-button mdl-button--fab mdl-button--colored mdl-shadow--6dp" @click="back()"><i class="material-icons">home</i></button>
-      <h2 class="header" v-if="datasource">{{ datasource.name }}</h2>
-      <h2 class="header" v-else>No data source selected</h2>
-      <h4 v-if="searchTerm">Searching for: '{{ searchTerm }}'</h4>
-      <h5>Select the item that you want to investigate.</h5>
-    </div>
-    <ul class="mdl-grid nodes">
-      <a class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--3dp" v-if="nodes" v-for="node in nodes" :key="node.id">
-        <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
-      </a>
-    </ul>
-  </div>
+  <mdc-layout-grid>
+    <mdc-layout-cell desktop=12 tablet=8>
+      <mdc-text typo='headline3' v-if="datasource">{{ datasource.name }}</mdc-text>
+      <mdc-text typo='headline3' v-else>>No data source selected</mdc-text>
+      <mdc-text typo='headline6'>Select the item that you want to investigate.</mdc-text>
+    </mdc-layout-cell>
+    <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
+      <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+    </mdc-layout-cell>
+
+    <mdc-fab v-if="nodeId" icon="home" fixed @click="$router.push('/')"></mdc-fab>
+  </mdc-layout-grid>
 </template>
 
 <script>
@@ -43,10 +41,6 @@
       }
     },
     methods: {
-      // On back press, pop last visited item from stack
-      back: function () {
-        this.$router.push('/')
-      },
       // Search for a specific term. TODO: search children as well
       search: function (searchTerm) {
         if (searchTerm === '') {
@@ -78,14 +72,13 @@
 
           // Request the data
           this.$jQuery.getJSON(url, function (data) {
-            console.log(data)
             if (data.length === 1) {
               vm.$router.replace('/detail/' + data[0].id)
             } else if (data.length === 0) {
               vm.$router.replace('/detail/' + this.nodeId)
             } else {
               // Sort them based on their name
-              if (this.nodeId) {
+              if (vm.nodeId) {
                 data.sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1
@@ -117,24 +110,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .header-container {
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-  .header-container > button {
-    margin-right: 15px;
-  }
-  .header {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .nodes .icon {
-    width: 48px;
-  }
-  .nodes .name {
-    padding: 15px;
-    width: 100%;
-  }
-</style>

@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import About from '@/components/About'
 import Catalogue from '@/components/Catalogue'
 import DatasourceGrid from '@/components/DatasourceGrid'
-import NodeGrid from '@/components/NodeGrid'
 import NodeDetails from '@/components/NodeDetails'
-import About from '@/components/About'
+import NodeGrid from '@/components/NodeGrid'
 
 Vue.use(Router)
 
@@ -56,8 +57,7 @@ export default new Router({
     }
   ],
   scrollBehavior (to, from, savedPosition) {
-    console.log(from, to)
-    window.$('.mdl-layout__content').scrollTop(0)
+    window.$('html').scrollTop(0)
     return null
   }
 })

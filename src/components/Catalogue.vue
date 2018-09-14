@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <ul class="mdl-grid nodes">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--3dp" v-if="nodes" v-for="node in nodes" :key="node.id">
-        <node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
-      </div>
-    </ul>
-  </div>
+  <mdc-layout-grid>
+    <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
+      <node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+    </mdc-layout-cell>
+  </mdc-layout-grid>
 </template>
 
 <script>
@@ -64,13 +62,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .nodes .icon {
-    width: 48px;
-  }
-  .nodes .name {
-    padding: 15px;
-    width: 100%;
-  }
-</style>

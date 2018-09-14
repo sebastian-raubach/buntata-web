@@ -1,55 +1,56 @@
 <template>
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-      <div class="middle" v-if="node">
-        <h2 v-text="node.name"></h2>
+  <div class="column">
+    <mdc-layout-grid v-if="node">
+      <mdc-layout-cell desktop=12 tablet=8 phone=4>
+        <mdc-text typo='headline3'>{{ node.name }}</mdc-text>
         <div v-if="node.media['Image'] !== null">
-          <div class="owl-carousel owl-theme">
-            <a class="image owl-item" :href="getImage(image, true)" :data-caption="getCopyright(image)" v-for="image in node.media['Image']" :key="image.id">
-              <div :style="{ backgroundImage: 'url(\'' + getImage(image, false) + '\')' }"></div>
+          <carousel :perPageCustom="[[0, 1], [768, 2], [1024, 3]]" class="carousel">
+            <slide v-for="image in node.media['Image']" :key="image.id" class="image">
+              <a :href="getImage(image, true)" :data-caption="getCopyright(image)">
+                <div :style="{ backgroundImage: 'url(\'' + getImage(image, false) + '\')' }"></div>
+              </a>
               <span class="copyright" v-if="image.copyright" v-html="getCopyright(image)"></span>
-            </a>
-          </div>
+            </slide>
+          </carousel>
         </div>
-        <div class="mdl-list">
+        <mdc-list>
           <div v-for="av in node.attributeValues" :key="av.id">
-            <h4 v-text="av.attribute.name"></h4>
-            <span v-html="av.value"></span>
+            <mdc-text typo='headline6'>{{ av.attribute.name }}</mdc-text>
+            <mdc-text typo='body1' v-html="av.value" />
           </div>
-        </div>
-        <div v-if="node.similarNodes.length > 0">
-          <h3>Similar diseases</h3>
-          <div class="mdl-grid">
-            <div v-for="similar in node.similarNodes" :key="similar.id" class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp node" v-on:click="onNodeClicked(similar)">
-              <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + getSimilarImage(similar) + '\')' }">
-              </div>
-              <div class="mdl-card__title">
-                <h5 class="mdl-card__title-text">{{ similar.name }}</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 v-else>No data found</h2>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+        </mdc-list> 
+      </mdc-layout-cell>
+      <mdc-layout-cell desktop=12 tablet=8 phone=4 v-if="node.similarNodes.length > 0">
+        <mdc-text typo='headline4'>Similar diseases</mdc-text>
+        <mdc-layout-inner-grid>
+          <mdc-layout-cell v-for="similar in node.similarNodes" :key="similar.id">
+            <node :node="similar" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(similar)"></node>
+          </mdc-layout-cell>
+        </mdc-layout-inner-grid>
+      </mdc-layout-cell>
+    </mdc-layout-grid>
+    <mdc-text typo='headline3' v-else>No data found.</mdc-text>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import 'owl.carousel/dist/assets/owl.carousel.css'
-  import 'owl.carousel/dist/assets/owl.theme.default.css'
-  import 'owl.carousel'
+  import { Carousel, Slide } from 'vue-carousel'
   import baguetteBox from 'baguettebox.js'
   import 'baguettebox.js/dist/baguetteBox.min.css'
+
+  import Node from '@/components/Node'
 
   export default {
     data: function () {
       return {
         node: null
       }
+    },
+    components: {
+      Node,
+      Carousel,
+      Slide
     },
     props: [ 'baseUrl' ],
     computed: {
@@ -81,6 +82,7 @@
         }
       },
       onNodeClicked: function (node) {
+        console.log(node)
         this.$router.push('/detail/' + node.id)
       },
       update: function () {
@@ -92,14 +94,9 @@
             // Wait for the reactive magic to kick in, then create the carousel
             vm.$nextTick(function () {
               // Carousel
-              vm.$jQuery('.owl-carousel').owlCarousel({
-                items: 3,
-                onInitialized: function () {
-                  baguetteBox.run('.owl-carousel', {
-                    'captions': 'true',
-                    'filter': /.*/i
-                  })
-                }
+              baguetteBox.run('.carousel', {
+                'captions': 'true',
+                'filter': /.*/i
               })
             })
           } else {
@@ -115,11 +112,15 @@
 </script>
 
 <style scoped>
+  .column {
+    max-width: 1024px;
+    margin: auto;
+  }
   .image {
     position: relative;
     width: 100%;
   }
-  .image > div {
+  .image div {
     background: center / cover;
     height: 300px;
     width: 100%;
@@ -149,19 +150,5 @@
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
-  }
-  /* Similar nodes */
-  .node:hover {
-    cursor: pointer;
-  }
-  .mdl-card__media {
-    height: 128px;
-    background: center / cover;
-  }
-  .node .mdl-card__title-text {
-    font-size: 20px;
-  }
-  .mdl-card {
-    min-height: auto;
   }
 </style>

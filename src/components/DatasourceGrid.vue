@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h2 class="header">Please select a data source:</h2>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" v-for="datasource in datasources" :key="datasource.id">
-        <datasource :datasource="datasource" :selected="isSelectedDatasource(datasource)" :base-url="baseUrl"></datasource>
-      </div>
-    </div>
-  </div>
+  <mdc-layout-grid>
+    <mdc-layout-cell desktop=12 tablet=8>
+      <mdc-text typo='headline3'>Please select a data source:</mdc-text>
+    </mdc-layout-cell>
+    <mdc-layout-cell desktop=3 v-for="datasource in datasources" :key="datasource.id">
+      <datasource :datasource="datasource" :selected="isSelectedDatasource(datasource)" :base-url="baseUrl"></datasource>
+    </mdc-layout-cell>
+  </mdc-layout-grid>
 </template>
 
 <script>
@@ -53,10 +53,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .header {
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-</style>

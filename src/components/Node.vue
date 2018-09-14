@@ -1,11 +1,8 @@
 <template>
-  <div class="node vertical">
-    <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }">
-    </div>
-    <div v-if="datasource.showKeyName || showKeyName" class="mdl-card__title" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}">
-      <h4 class="mdl-card__title-text">{{ node.name }}</h4>
-    </div>
-  </div>
+  <mdc-card class="node">
+    <mdc-card-media :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }"></mdc-card-media>
+    <mdc-card-header v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+  </mdc-card>
 </template>
 
 <script>
@@ -56,17 +53,5 @@
 <style scoped>
   .node:hover {
     cursor: pointer;
-  }
-  .mdl-card__media {
-    background: center / cover;
-    height: 100px
-  }
-  .node.vertical .mdl-card__media {
-    height: 256px;
-  }
-  .mdl-card__title-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 </style>

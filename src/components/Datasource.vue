@@ -1,18 +1,15 @@
 <template>
-  <div v-if="datasource">
-    <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + getIcon(datasource.id) + '\')' }"></div>
-    <div class="mdl-card__title">
-      <h4 class="mdl-card__title-text">{{ datasource.name }}</h4>
-      <button class="mdl-button mdl-button--fab mdl-button--colored mdl-shadow--6dp" @click="onDatasourceSelected()"><i class="material-icons">{{ getStatus() }}</i></button>
-    </div>
-    <div class="mdl-card__supporting-text">
-      <p v-if="datasource.description"><b>Description</b>: {{ datasource.description }}</p>
-      <p v-if="datasource.dataProvider"><b>Provider</b>: {{ datasource.dataProvider }}</p>
-      <p v-if="datasource.versionNumber"><b>Version</b>: {{ datasource.versionNumber }}</p>
-      <p v-if="datasource.contact"><b>Contact</b>: <a :href="'mailto:' + datasource.contact">{{ datasource.contact }}</a></p>
-      <p v-if="datasource.updatedOn"><b>Updated on</b>: {{ datasource.updatedOn | toDate }}</p>
-    </div>
-  </div>
+  <mdc-card v-if="datasource">
+    <mdc-card-media :style="{ backgroundImage: 'url(\'' + getIcon(datasource.id) + '\')' }"></mdc-card-media>
+    <mdc-card-header :title="datasource.name" >
+      <mdc-fab @click="onDatasourceSelected()" :icon="getStatus()"></mdc-fab>
+    </mdc-card-header>
+    <mdc-card-text v-if="datasource.description"><b>Description</b>: {{ datasource.description }}</mdc-card-text>
+    <mdc-card-text v-if="datasource.dataProvider"><b>Provider</b>: {{ datasource.dataProvider }}</mdc-card-text>
+    <mdc-card-text v-if="datasource.versionNumber"><b>Version</b>: {{ datasource.versionNumber }}</mdc-card-text>
+    <mdc-card-text v-if="datasource.contact"><b>Contact</b>: <a :href="'mailto:' + datasource.contact">{{ datasource.description }}</a></mdc-card-text>
+    <mdc-card-text v-if="datasource.updatedOn"><b>Updated on</b>: {{ datasource.updatedOn | toDate }}</mdc-card-text>
+  </mdc-card>
 </template>
 
 <script>
@@ -52,15 +49,15 @@
 </script>
 
 <style scoped>
-  .mdl-card__media {
+  .mdc-card__media {
     height: 256px;
     background: center / cover;
   }
-  .mdl-card__title {
+  .mdc-card-header {
     position: relative;
     overflow: visible;
   }
-  .mdl-button--fab {
+  .mdc-fab {
     position: absolute;
     right: 15px;
     top: -28px;

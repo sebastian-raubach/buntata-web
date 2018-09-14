@@ -1,53 +1,39 @@
 <template>
   <div>
-    <div class="header-container">
-      <h2>About</h2>
-      <p>Buntata is an app which aids in the identification of plant disease and pathogens and offers information to
+    <mdc-layout-grid>
+      <mdc-layout-cell desktop=12 tablet=8>
+        <mdc-text typo='headline3'>About</mdc-text>
+        <mdc-text>Buntata is an app which aids in the identification of plant disease and pathogens and offers information to
 		farmers where they can go to get more details about any pests. It provides downloadable datasets allowing users to use the application in the
-		field without the need of a mobile signal.</p><p>This first release focusses on potato pests and diseases, but Buntata can easily be adapted for any crop system.</p><p>We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.</p>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)">
-        <mdi-google-play-icon/>
-        Google Play
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://ics.hutton.ac.uk/get-buntata', true)">
-        <mdi-earth-icon/>
-        Website
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')">
-        <mdi-email-icon/>
-        Email
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="open('https://twitter.com/BuntataApp', true)">
-        <mdi-twitter-icon/>
-        Twitter
-      </button>
-      <h3>Team</h3>
-    </div>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" v-for="dev in devs" :key="dev.name">
-        <div class="mdl-card__media" :style="{ backgroundImage: 'url(\'' + dev.img + '\')' }"></div>
-        <div class="mdl-card__title">
-          <h4 class="mdl-card__title-text">{{ dev.name }}</h4>
-          <a class="mdl-button mdl-button--fab mdl-button--colored mdl-shadow--6dp" :href="'mailto:' + dev.email"><i class="material-icons">email</i></a>
-        </div>
-        <div class="mdl-card__supporting-text">
-          <p v-if="dev.title">{{ dev.title }}</p>
-          <p v-if="dev.institution && dev.institution.group">{{ dev.institution.group }}</p>
-          <p v-if="dev.institution && dev.institution.name">{{ dev.institution.name }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="header-container">
-      <h3>Acknowledgements</h3>
-    </div>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone acknowledgement" v-for="ack in acknowledgements" :key="ack.name">
+		field without the need of a mobile signal.</mdc-text><mdc-text>This first release focusses on potato pests and diseases, but Buntata can easily be adapted for any crop system.</mdc-text><mdc-text>We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.</mdc-text>
+        <mdc-button raised @click="open('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)"><mdi-google-play-icon class="icon"/>Google Play</mdc-button>
+        <mdc-button raised @click="open('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon class="icon"/>Website</mdc-button>
+        <mdc-button raised @click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon class="icon"/>Email</mdc-button>
+        <mdc-button raised @click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon class="icon"/>Twitter</mdc-button>
+        <mdc-text typo='headline4'>Team</mdc-text>
+      </mdc-layout-cell>
+      <mdc-layout-cell desktop=3 v-for="dev in devs" :key="dev.name">
+        <mdc-card>
+          <mdc-card-media :style="{ backgroundImage: 'url(\'' + dev.img + '\')' }"></mdc-card-media>
+          <mdc-card-header :title="dev.name" >
+            <mdc-fab @click="open('mailto:' + dev.email)">
+              <mdi-email-icon class="icon"/>
+            </mdc-fab>
+          </mdc-card-header>
+          <mdc-card-text v-if="dev.title">{{ dev.title }}</mdc-card-text>
+          <mdc-card-text v-if="dev.institution && dev.institution.group">{{ dev.institution.group }}</mdc-card-text>
+          <mdc-card-text v-if="dev.institution && dev.institution.name">{{ dev.institution.name }}</mdc-card-text>
+        </mdc-card>
+      </mdc-layout-cell>
+      <mdc-layout-cell desktop=12 tablet=8>
+        <mdc-text typo='headline4'>Acknowledgements</mdc-text>
+      </mdc-layout-cell>
+      <mdc-layout-cell desktop=3 v-for="ack in acknowledgements" :key="ack.name" class="acknowledgement">
         <div class="logo" :style="{ backgroundImage: 'url(\'' + ack.logo + '\')' }"></div>
-        <div class="mdl-card__title">
-          <h4 class="mdl-card__title-text">{{ ack.name }}</h4>
-        </div>
-      </div>
-    </div>
+        <mdc-headline class="title">{{ ack.name }}</mdc-headline>
+      </mdc-layout-cell>
+      
+    </mdc-layout-grid>
     <div id='banner' />
   </div>
 </template>
@@ -136,6 +122,24 @@
 </script>
 
 <style scoped>
+  .icon {
+    fill: white;
+    padding-right: 4px;
+  }
+
+  .mdc-card__media {
+    height: 300px;
+    background-position: top;
+  }
+  .mdc-card-header {
+    position: relative;
+    overflow: visible;
+  }
+  .mdc-fab {
+    position: absolute;
+    right: 15px;
+    top: -28px;
+  }
   .acknowledgement > .logo {
     height: 250px;
     max-width: 75%;
@@ -147,26 +151,9 @@
     background-attachment: scroll;
     box-sizing: border-box;
   }
-  .acknowledgement .mdl-card__title-text {
+  .acknowledgement > .title {
     width: 100%;
     text-align: center;
     display: block;
-  }
-  .header-container {
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-  .mdl-card__media {
-    height: 300px;
-    background-position: top;
-  }
-  .mdl-card__title {
-    position: relative;
-    overflow: visible;
-  }
-  .mdl-button--fab {
-    position: absolute;
-    right: 15px;
-    top: -28px;
   }
 </style>
