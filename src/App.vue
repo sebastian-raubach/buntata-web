@@ -25,15 +25,18 @@
       </div>
     </main>
     <mdc-layout-grid class="footer">
-      <mdc-layout-cell desktop=10 tablet=8>
+      <mdc-layout-cell desktop=7 tablet=8>
         <mdc-body class="copyright">&copy; {{ new Date().getFullYear() }}</mdc-body>
-        <a href="http://www.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/jhi-white.svg`)"></a>
-        <a href="https://ics.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/ics-sdg-white.svg`)"></a>
+        <span class="nowrap">
+          <a href="http://www.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/jhi-white.svg`)"></a>
+          <a href="https://ics.hutton.ac.uk"><img class="logo" :src="require(`@/assets/img/ics-sdg-white.svg`)"></a>
+        </span>
       </mdc-layout-cell>
-      <mdc-layout-cell desktop=2 tablet=8>
-        <mdc-button class="social-button twitter"><mdi-twitter-icon /></mdc-button>
-        <mdc-button class="social-button email"><mdi-email-icon /></mdc-button>
-        <mdc-button class="social-button website"><mdi-earth-icon /></mdc-button>
+      <mdc-layout-cell desktop=5 tablet=8>
+        <mdc-button class="social-button twitter" v-on:click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon /></mdc-button>
+        <mdc-button class="social-button email" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon /></mdc-button>
+        <mdc-button class="social-button github" v-on:click="open('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon /></mdc-button>
+        <mdc-button class="social-button website" v-on:click="open('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon /></mdc-button>
       </mdc-layout-cell>
     </mdc-layout-grid>
   </mdc-layout-app>
@@ -43,13 +46,23 @@
   require('mdi-vue/EarthIcon')
   require('mdi-vue/EmailIcon')
   require('mdi-vue/TwitterIcon')
+  require('mdi-vue/GithubCircleIcon')
 
   global.jQuery = require('jquery')
   var $ = global.jQuery
   window.$ = $
 
   export default {
-    name: 'app'
+    name: 'app',
+    methods: {
+      open: function (url, newTab) {
+        if (newTab) {
+          window.open(url, '_blank')
+        } else {
+          window.location = url
+        }
+      }
+    }
   }
 </script>
 
@@ -61,11 +74,16 @@
     color: #2c3e50;
   }
 
+  .nowrap {
+    white-space: nowrap;
+  }
+
   .logo {
     height: 56px;
     width: auto;
     margin: auto;
     padding-left: 16px;
+    max-width: 45%;
   }
 
   .content {
@@ -110,6 +128,10 @@
 
   .footer .social-button.website:hover svg {
     fill: #4caf50;
+  }
+
+  .footer .social-button.github:hover svg {
+    fill: #6e5494;
   }
 
   #logo {

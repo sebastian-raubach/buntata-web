@@ -72,10 +72,10 @@
 
           // Request the data
           this.$jQuery.getJSON(url, function (data) {
-            if (data.length === 1) {
+            if (data.length === 1 && !vm.datasource.showSingleChild) {
               vm.$router.replace('/detail/' + data[0].id)
             } else if (data.length === 0) {
-              vm.$router.replace('/detail/' + this.nodeId)
+              vm.$router.replace('/detail/' + vm.nodeId)
             } else {
               // Sort them based on their name
               if (vm.nodeId) {

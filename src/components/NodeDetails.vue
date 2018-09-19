@@ -21,7 +21,7 @@
         </mdc-list> 
       </mdc-layout-cell>
       <mdc-layout-cell desktop=12 tablet=8 phone=4 v-if="node.similarNodes.length > 0">
-        <mdc-text typo='headline4'>Similar diseases</mdc-text>
+        <mdc-text typo='headline4'>Similar items</mdc-text>
         <mdc-layout-inner-grid>
           <mdc-layout-cell v-for="similar in node.similarNodes" :key="similar.id">
             <node :node="similar" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(similar)"></node>
@@ -82,7 +82,6 @@
         }
       },
       onNodeClicked: function (node) {
-        console.log(node)
         this.$router.push('/detail/' + node.id)
       },
       update: function () {

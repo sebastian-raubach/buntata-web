@@ -1,7 +1,7 @@
 <template>
   <mdc-card class="node">
     <mdc-card-media :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }"></mdc-card-media>
-    <mdc-card-header v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+    <mdc-card-header class="node-header" v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
   </mdc-card>
 </template>
 
@@ -35,23 +35,29 @@
     mounted: function () {
       var vm = this
       if (this.datasource.showKeyName || this.showKeyName) {
-        Vibrant.from(this.getImage())
-          .getPalette(function (err, palette) {
-            if (err) {
-              console.log(err.stack)
-            } else {
-              vm.backgroundColor = palette.Vibrant.getHex()
-              var avg = (palette.Vibrant.r + palette.Vibrant.g + palette.Vibrant.b) / 3
-              vm.foregroundColor = avg < 128 ? 'white' : 'black'
-            }
-          })
+        this.$nextTick(function () {
+          Vibrant.from(this.getImage())
+            .getPalette(function (err, palette) {
+              if (!err && palette && palette.Vibrant) {
+                vm.backgroundColor = palette.Vibrant.getHex()
+                var avg = (palette.Vibrant.r + palette.Vibrant.g + palette.Vibrant.b) / 3
+                vm.foregroundColor = avg < 128 ? 'white' : 'black'
+              }
+            })
+        })
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
   .node:hover {
     cursor: pointer;
+  }
+
+  .node .node-header > h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

@@ -7,6 +7,7 @@
 		farmers where they can go to get more details about any pests. It provides downloadable datasets allowing users to use the application in the
 		field without the need of a mobile signal.</mdc-text><mdc-text>This first release focusses on potato pests and diseases, but Buntata can easily be adapted for any crop system.</mdc-text><mdc-text>We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.</mdc-text>
         <mdc-button raised @click="open('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)"><mdi-google-play-icon class="icon"/>Google Play</mdc-button>
+        <mdc-button raised @click="open('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon class="icon"/>GitHub</mdc-button>
         <mdc-button raised @click="open('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon class="icon"/>Website</mdc-button>
         <mdc-button raised @click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon class="icon"/>Email</mdc-button>
         <mdc-button raised @click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon class="icon"/>Twitter</mdc-button>
@@ -15,11 +16,12 @@
       <mdc-layout-cell desktop=3 v-for="dev in devs" :key="dev.name">
         <mdc-card>
           <mdc-card-media :style="{ backgroundImage: 'url(\'' + dev.img + '\')' }"></mdc-card-media>
-          <mdc-card-header :title="dev.name" >
+          <div class="mdc-card-fab">
             <mdc-fab @click="open('mailto:' + dev.email)">
               <mdi-email-icon class="icon"/>
             </mdc-fab>
-          </mdc-card-header>
+          </div>
+          <mdc-card-header :title="dev.name" />
           <mdc-card-text v-if="dev.title">{{ dev.title }}</mdc-card-text>
           <mdc-card-text v-if="dev.institution && dev.institution.group">{{ dev.institution.group }}</mdc-card-text>
           <mdc-card-text v-if="dev.institution && dev.institution.name">{{ dev.institution.name }}</mdc-card-text>
@@ -43,6 +45,7 @@
   require('mdi-vue/EarthIcon')
   require('mdi-vue/EmailIcon')
   require('mdi-vue/TwitterIcon')
+  require('mdi-vue/GithubCircleIcon')
 
   require('../assets/js/hutton-banner.js')
   require('../assets/css/hutton-banner.css')
@@ -131,7 +134,7 @@
     height: 300px;
     background-position: top;
   }
-  .mdc-card-header {
+  .mdc-card-fab {
     position: relative;
     overflow: visible;
   }

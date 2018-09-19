@@ -6,6 +6,7 @@ import './theme.scss'
 import App from './App'
 import router from './router'
 import store from './store/store'
+import VueAnalytics from 'vue-analytics'
 
 Vue.use({
   install: function (Vue, options) {
@@ -17,11 +18,25 @@ Vue.config.productionTip = false
 
 Vue.use(VueMDCAdapter)
 
+const isProd = process.env.NODE_ENV === 'production'
+
+Vue.use(VueAnalytics, {
+  id: 'UA-49362218-9',
+  router,
+  autoTracking: {
+    exceptions: true
+  },
+  debug: {
+    enabled: !isProd,
+    sendHitTask: isProd
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  store: store,
+  store,
   template: '<App/>',
   components: { App }
 })

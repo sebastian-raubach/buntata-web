@@ -1,9 +1,10 @@
 <template>
   <mdc-card v-if="datasource">
     <mdc-card-media :style="{ backgroundImage: 'url(\'' + getIcon(datasource.id) + '\')' }"></mdc-card-media>
-    <mdc-card-header :title="datasource.name" >
+    <div class="mdc-card-fab">
       <mdc-fab @click="onDatasourceSelected()" :icon="getStatus()"></mdc-fab>
-    </mdc-card-header>
+    </div>
+    <mdc-card-header :title="datasource.name" />
     <mdc-card-text v-if="datasource.description"><b>Description</b>: {{ datasource.description }}</mdc-card-text>
     <mdc-card-text v-if="datasource.dataProvider"><b>Provider</b>: {{ datasource.dataProvider }}</mdc-card-text>
     <mdc-card-text v-if="datasource.versionNumber"><b>Version</b>: {{ datasource.versionNumber }}</mdc-card-text>
@@ -53,7 +54,7 @@
     height: 256px;
     background: center / cover;
   }
-  .mdc-card-header {
+  .mdc-card-fab {
     position: relative;
     overflow: visible;
   }
