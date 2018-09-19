@@ -84,12 +84,22 @@
       onNodeClicked: function (node) {
         this.$router.push('/detail/' + node.id)
       },
+      onDatasourceSelected: function () {
+        var vm = this
+
+        if (this.datasource.id !== this.node.datasourceId) {
+          this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.node.datasourceId, function (data) {
+            vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
+          })
+        }
+      },
       update: function () {
         var vm = this
         // Request the data
         this.$jQuery.getJSON(this.baseUrl + 'node/' + this.$route.params.id, function (data) {
           if (data.length === 1) {
             vm.node = data[0]
+            vm.onDatasourceSelected()
             // Wait for the reactive magic to kick in, then create the carousel
             vm.$nextTick(function () {
               // Carousel

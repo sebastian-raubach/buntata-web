@@ -103,7 +103,9 @@
       } else {
         var vm = this
         this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.datasource.id, function (data) {
-          vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
+          if (vm.datasource.id !== data[0].id) {
+            vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
+          }
           vm.update()
         })
       }
