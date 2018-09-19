@@ -35,6 +35,7 @@
     mounted: function () {
       var vm = this
       if (this.datasource.showKeyName || this.showKeyName) {
+        // If the name is show, color it based on the image colours
         this.$nextTick(function () {
           Vibrant.from(this.getImage())
             .getPalette(function (err, palette) {

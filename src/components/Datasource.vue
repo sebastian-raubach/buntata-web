@@ -34,6 +34,7 @@
       getIcon: function (id) {
         return this.baseUrl + 'datasource/' + id + '/icon'
       },
+      // When datasource is selected, store it, then redirect
       onDatasourceSelected: function () {
         this.$store.dispatch('ON_DATASOURCE_CHANGED', this.datasource)
         this.$router.push('/')

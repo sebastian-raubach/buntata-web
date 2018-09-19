@@ -16,7 +16,9 @@
   export default {
     data: function () {
       return {
+        // All datasources
         datasources: [],
+        // Currently active datasource
         selectedDatasource: null
       }
     },
@@ -30,6 +32,7 @@
     },
     props: [ 'baseUrl' ],
     methods: {
+      // Check if this is the active datasource
       isSelectedDatasource: function (datasource) {
         return datasource !== null && this.selectedDatasource !== null && datasource.id === this.selectedDatasource.id
       },

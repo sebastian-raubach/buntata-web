@@ -11,12 +11,14 @@ Vue.use(Router)
 
 var baseUrl
 
+// Set base URL based on environment
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://localhost:8080/buntata/v1.1/'
 } else {
   baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
 }
 
+// Handle page navigation
 export default new Router({
   routes: [
     {
@@ -57,6 +59,7 @@ export default new Router({
     }
   ],
   scrollBehavior (to, from, savedPosition) {
+    // Scroll to the top
     window.$('html').scrollTop(0)
     return null
   }

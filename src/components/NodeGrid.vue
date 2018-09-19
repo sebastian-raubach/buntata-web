@@ -9,7 +9,7 @@
       <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
     </mdc-layout-cell>
 
-    <mdc-fab v-if="nodeId" icon="home" fixed @click="$router.push('/')"></mdc-fab>
+    <mdc-fab v-if="parentId" icon="home" fixed @click="$router.push('/')"></mdc-fab>
   </mdc-layout-grid>
 </template>
 
@@ -20,9 +20,12 @@
   export default {
     data: function () {
       return {
+        // Currently visible nodes. Potentially filtered to match search.
         nodes: null,
+        // All nodes, i.e. unfiltered
         nodesUnfiltered: [],
-        nodeId: null
+        // Id of the parent node
+        parentId: null
       }
     },
     components: {
@@ -36,6 +39,7 @@
       ])
     },
     watch: {
+      // Listen to search events
       searchTerm: function (newSearchTerm, oldSearchTerm) {
         this.search(newSearchTerm)
       }
@@ -61,24 +65,27 @@
           var vm = this
           var url
 
-          this.nodeId = this.$route.params.parent_id
+          // Get parent id from the URL
+          this.parentId = this.$route.params.parent_id
 
           // If there is no parent, show the root nodes, else get children of the parent
-          if (!this.nodeId) {
+          if (!this.parentId) {
             url = this.baseUrl + 'datasource/' + this.datasource.id + '/nodes/?type=root'
           } else {
-            url = this.baseUrl + 'node/?nodeParentId=' + this.nodeId
+            url = this.baseUrl + 'node/?nodeParentId=' + this.parentId
           }
 
           // Request the data
           this.$jQuery.getJSON(url, function (data) {
             if (data.length === 1 && !vm.datasource.showSingleChild) {
+              // If there's only one child and we're not supposed to show it, redirect straight away
               vm.$router.replace('/detail/' + data[0].id)
             } else if (data.length === 0) {
-              vm.$router.replace('/detail/' + vm.nodeId)
+              // Else if there are no children, redirect to this node's details page
+              vm.$router.replace('/detail/' + vm.parentId)
             } else {
               // Sort them based on their name
-              if (vm.nodeId) {
+              if (vm.parentId) {
                 data.sort(function (a, b) {
                   if (a.name < b.name) {
                     return -1

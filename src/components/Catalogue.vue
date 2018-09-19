@@ -13,6 +13,7 @@
   export default {
     data: function () {
       return {
+        // All the leaf nodes
         nodes: null
       }
     },
@@ -38,6 +39,7 @@
 
           // Request the data
           this.$jQuery.getJSON(url, function (data) {
+            // Sort them based on their name
             data.sort(function (a, b) {
               if (a.name < b.name) {
                 return -1

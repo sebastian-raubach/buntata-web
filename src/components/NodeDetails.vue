@@ -64,6 +64,7 @@
       this.update()
     },
     methods: {
+      // Get the copyright information
       getCopyright: function (medium) {
         if (medium.copyright) {
           return '&#169; ' + medium.copyright
@@ -71,9 +72,11 @@
           return ''
         }
       },
+      // Get the image
       getImage: function (medium, fullSize) {
         return this.baseUrl + 'media/' + medium.id + (fullSize ? '' : '?small=true')
       },
+      // Get image of the similar nodes
       getSimilarImage: function (similar) {
         if (similar.media['Image'].length > 0) {
           return this.baseUrl + 'media/' + similar.media['Image'][0].id + '?small=true'
@@ -81,9 +84,11 @@
           return ''
         }
       },
+      // Redirect on node click
       onNodeClicked: function (node) {
         this.$router.push('/detail/' + node.id)
       },
+      // Update store if the datasource is different from the active one
       onDatasourceSelected: function () {
         var vm = this
 

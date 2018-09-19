@@ -53,6 +53,7 @@
   export default {
     data: function () {
       return {
+        // The developers
         devs: [
           {
             name: 'Sebastian Raubach',
@@ -85,6 +86,7 @@
             img: './static/img/lesley-torrance.jpg'
           }
         ],
+        // Acknowledgements for funders
         acknowledgements: [
           {
             logo: './static/img/acknowledgements/jhi.svg',
@@ -110,6 +112,7 @@
       }
     },
     methods: {
+      // Open the url, new tab or not
       open: function (url, newTab) {
         if (newTab) {
           window.open(url, '_blank')
@@ -119,6 +122,7 @@
       }
     },
     mounted: function () {
+      // Add the Hutton banner
       this.$jQuery('#banner').huttonBanner()
     }
   }
