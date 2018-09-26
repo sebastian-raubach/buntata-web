@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "baguettebox.js": "^1.10.0",
+    "es6-promise": "^4.2.5",
     "jquery": "^3.3.1",
     "material-components-web": "0.35.0",
     "mdi-vue": "^0.2.14",
@@ -78,8 +79,8 @@
     "npm": ">= 3.0.0"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
+    "> 0.2%",
+    "last 4 versions",
     "not ie <= 8"
   ]
 }

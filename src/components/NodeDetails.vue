@@ -5,7 +5,7 @@
         <mdc-text typo='headline3'>{{ node.name }}</mdc-text>
         <div v-if="node.media['Image'] !== null">
           <carousel :perPageCustom="[[0, 1], [768, 2], [1024, 3]]" class="carousel">
-            <slide v-for="image in node.media['Image']" :key="image.id" class="image">
+            <slide v-for="image in node.media['Image']" :key="image.id" class="image mdc-ripple-surface">
               <a :href="getImage(image, true)" :data-caption="getCopyright(image)">
                 <div :style="{ backgroundImage: 'url(\'' + getImage(image, false) + '\')' }"></div>
               </a>
@@ -93,7 +93,7 @@
         var vm = this
 
         if (this.datasource.id !== this.node.datasourceId) {
-          this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.node.datasourceId, function (data) {
+          this.getJSON(this.baseUrl + 'datasource/' + this.node.datasourceId, function (data) {
             vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
           })
         }
@@ -101,7 +101,8 @@
       update: function () {
         var vm = this
         // Request the data
-        this.$jQuery.getJSON(this.baseUrl + 'node/' + this.$route.params.id, function (data) {
+        this.getJSON(this.baseUrl + 'node/' + this.$route.params.id, function (data) {
+          console.log(data)
           if (data.length === 1) {
             vm.node = data[0]
             vm.onDatasourceSelected()

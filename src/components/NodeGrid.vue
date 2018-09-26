@@ -76,7 +76,7 @@
           }
 
           // Request the data
-          this.$jQuery.getJSON(url, function (data) {
+          this.getJSON(url, function (data) {
             if (data.length === 1 && !vm.datasource.showSingleChild) {
               // If there's only one child and we're not supposed to show it, redirect straight away
               vm.$router.replace('/detail/' + data[0].id)
@@ -109,7 +109,7 @@
         this.$router.push('/datasource')
       } else {
         var vm = this
-        this.$jQuery.getJSON(this.baseUrl + 'datasource/' + this.datasource.id, function (data) {
+        this.getJSON(this.baseUrl + 'datasource/' + this.datasource.id, function (data) {
           if (vm.datasource.id !== data[0].id) {
             vm.$store.dispatch('ON_DATASOURCE_CHANGED', data[0])
           }

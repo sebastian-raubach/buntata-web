@@ -49,7 +49,7 @@
     mounted: function () {
       // Load the data from the server
       var vm = this
-      this.$jQuery.getJSON(this.baseUrl + 'datasource', function (data) {
+      this.getJSON(this.baseUrl + 'datasource', function (data) {
         vm.datasources = data
       })
       this.selectedDatasource = this.datasource

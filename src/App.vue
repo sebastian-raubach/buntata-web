@@ -33,10 +33,10 @@
         </span>
       </mdc-layout-cell>
       <mdc-layout-cell desktop=5 tablet=8>
-        <mdc-button class="social-button twitter" v-on:click="open('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon /></mdc-button>
-        <mdc-button class="social-button email" v-on:click="open('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon /></mdc-button>
-        <mdc-button class="social-button github" v-on:click="open('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon /></mdc-button>
-        <mdc-button class="social-button website" v-on:click="open('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon /></mdc-button>
+        <mdc-button class="social-button twitter" v-on:click="openUrl('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon /></mdc-button>
+        <mdc-button class="social-button email" v-on:click="openUrl('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon /></mdc-button>
+        <mdc-button class="social-button github" v-on:click="openUrl('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon /></mdc-button>
+        <mdc-button class="social-button website" v-on:click="openUrl('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon /></mdc-button>
       </mdc-layout-cell>
     </mdc-layout-grid>
   </mdc-layout-app>
@@ -53,16 +53,7 @@
   window.$ = $
 
   export default {
-    name: 'app',
-    methods: {
-      open: function (url, newTab) {
-        if (newTab) {
-          window.open(url, '_blank')
-        } else {
-          window.location = url
-        }
-      }
-    }
+    name: 'app'
   }
 </script>
 

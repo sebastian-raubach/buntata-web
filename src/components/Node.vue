@@ -1,7 +1,9 @@
 <template>
   <mdc-card class="node">
-    <mdc-card-media :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }"></mdc-card-media>
-    <mdc-card-header class="node-header" v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+    <mdc-card-primary-action>
+      <mdc-card-media :style="{ backgroundImage: 'url(\'' + getImage() + '\')' }"></mdc-card-media>
+      <mdc-card-header class="node-header" v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+    </mdc-card-primary-action>
   </mdc-card>
 </template>
 

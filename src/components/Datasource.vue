@@ -8,7 +8,7 @@
     <mdc-card-text v-if="datasource.description"><b>Description</b>: {{ datasource.description }}</mdc-card-text>
     <mdc-card-text v-if="datasource.dataProvider"><b>Provider</b>: {{ datasource.dataProvider }}</mdc-card-text>
     <mdc-card-text v-if="datasource.versionNumber"><b>Version</b>: {{ datasource.versionNumber }}</mdc-card-text>
-    <mdc-card-text v-if="datasource.contact"><b>Contact</b>: <a :href="'mailto:' + datasource.contact">{{ datasource.description }}</a></mdc-card-text>
+    <mdc-card-text v-if="datasource.contact"><b>Contact</b>: <a :href="'mailto:' + datasource.contact">{{ datasource.contact }}</a></mdc-card-text>
     <mdc-card-text v-if="datasource.updatedOn"><b>Updated on</b>: {{ datasource.updatedOn | toDate }}</mdc-card-text>
   </mdc-card>
 </template>

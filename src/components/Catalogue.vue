@@ -1,5 +1,8 @@
 <template>
   <mdc-layout-grid>
+    <mdc-layout-cell desktop=12 tablet=8>
+      <mdc-text typo='headline3'>Please select a node:</mdc-text>
+    </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
       <node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
     </mdc-layout-cell>
@@ -38,7 +41,7 @@
           var url = this.baseUrl + 'datasource/' + this.datasource.id + '/nodes/?type=leaf'
 
           // Request the data
-          this.$jQuery.getJSON(url, function (data) {
+          this.getJSON(url, function (data) {
             // Sort them based on their name
             data.sort(function (a, b) {
               if (a.name < b.name) {
