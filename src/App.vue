@@ -21,6 +21,7 @@
     </mdc-drawer>
     <main class="content" >
       <div id="app">
+        <div id="ie-banner" class="mdc-elevation mdc-elevation--z1"><mdi-alert-icon/><span>Buntata Web does not support Internet Explorer. Please install a modern web browser.</span> <a href="http://outdatedbrowser.com" target="_blank">Options are available here.</a><mdi-alert-icon/></div>
         <router-view :key="$route.path"/>
       </div>
     </main>
@@ -47,13 +48,24 @@
   require('mdi-vue/EmailIcon')
   require('mdi-vue/TwitterIcon')
   require('mdi-vue/GithubCircleIcon')
+  require('mdi-vue/AlertIcon')
 
   global.jQuery = require('jquery')
   var $ = global.jQuery
   window.$ = $
 
   export default {
-    name: 'app'
+    name: 'app',
+    mounted: function () {
+      var ua = navigator.userAgent
+      var isIe = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
+
+      if (isIe === true) {
+        $('#ie-banner').show()
+      } else {
+        $('#ie-banner').remove()
+      }
+    }
   }
 </script>
 
@@ -63,6 +75,30 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+  }
+
+  #ie-banner {
+    min-height: 40px;
+    background-color: #e74c3c;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  #ie-banner > * {
+    vertical-align: middle;
+  }
+  #ie-banner > svg {
+    fill: white;
+    margin: 0 15px;
+  }
+  #ie-banner > a {
+    color: white;
+  }
+  #ie-banner > a:hover {
+    color: lightgray;
   }
 
   .nowrap {

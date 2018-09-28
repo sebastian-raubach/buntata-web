@@ -6,7 +6,7 @@
       <mdc-text typo='headline6'>Select the item that you want to investigate.</mdc-text>
     </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
-      <node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+      <Node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></Node>
     </mdc-layout-cell>
 
     <mdc-fab v-if="parentId" icon="home" fixed @click="$router.push('/')"></mdc-fab>

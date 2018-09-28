@@ -4,7 +4,7 @@
       <mdc-text typo='headline3'>Please select a node:</mdc-text>
     </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
-      <node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></node>
+      <Node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></Node>
     </mdc-layout-cell>
   </mdc-layout-grid>
 </template>
