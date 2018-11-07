@@ -2,15 +2,15 @@
   <div>
     <mdc-layout-grid>
       <mdc-layout-cell desktop=12 tablet=8>
-        <mdc-text typo='headline3'>About</mdc-text>
-        <mdc-text>Buntata is an app which aids in the identification of plant disease and pathogens and offers information to
-		farmers where they can go to get more details about any pests. It provides downloadable datasets allowing users to use the application in the
-		field without the need of a mobile signal.</mdc-text><mdc-text>This first release focusses on potato pests and diseases, but Buntata can easily be adapted for any crop system.</mdc-text><mdc-text>We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.</mdc-text>
-        <mdc-button raised @click="openUrl('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)"><mdi-google-play-icon class="icon"/>Google Play</mdc-button>
-        <mdc-button raised @click="openUrl('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon class="icon"/>GitHub</mdc-button>
-        <mdc-button raised @click="openUrl('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon class="icon"/>Website</mdc-button>
-        <mdc-button raised @click="openUrl('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon class="icon"/>Email</mdc-button>
-        <mdc-button raised @click="openUrl('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon class="icon"/>Twitter</mdc-button>
+        <mdc-text typo='headline3'>{{ $t('aboutHeading') }}</mdc-text>
+        <mdc-text>{{ $t('aboutTextOne' ) }}</mdc-text>
+        <mdc-text>{{ $t('aboutTextTwo') }}</mdc-text>
+        <mdc-text>{{ $t('aboutTextThree') }}</mdc-text>
+        <mdc-button raised @click="openUrl('https://play.google.com/store/apps/details?id=uk.ac.hutton.ics.buntata', true)"><mdi-google-play-icon class="icon"/>{{ $t('linkTextGooglePlay') }}</mdc-button>
+        <mdc-button raised @click="openUrl('https://github.com/buntata/buntata-web', true)"><mdi-github-circle-icon class="icon"/>{{ $t('linkTextGitHub') }}</mdc-button>
+        <mdc-button raised @click="openUrl('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon class="icon"/>{{ $t('linkTextWebsite') }}</mdc-button>
+        <mdc-button raised @click="openUrl('mailto:cropgeeksapps@hutton.ac.uk')"><mdi-email-icon class="icon"/>{{ $t('linkTextEmail') }}</mdc-button>
+        <mdc-button raised @click="openUrl('https://twitter.com/BuntataApp', true)"><mdi-twitter-icon class="icon"/>{{ $t('linkTextTwitter') }}</mdc-button>
         <mdc-text typo='headline4'>Team</mdc-text>
       </mdc-layout-cell>
       <mdc-layout-cell desktop=3 v-for="dev in devs" :key="dev.name">
@@ -28,12 +28,10 @@
         </mdc-card>
       </mdc-layout-cell>
       <mdc-layout-cell desktop=12 tablet=8>
-        <mdc-text typo='body1'>We would like to thank John Jones, Ian Toth, Jennie Brierley, Alison Lees, Graham Cowan, Sonia Humphris and Roy
-		Neilson for their help in getting the underlying potato dataset and images brought together and assembled. In addition, we appreciate the images and
-		information provided by Danny Coyne and Sue Hockland.</mdc-text>
+        <mdc-text typo='body1'>{{ $t('aboutThanksTo') }}</mdc-text>
       </mdc-layout-cell>
       <mdc-layout-cell desktop=12 tablet=8>
-        <mdc-text typo='headline4'>Acknowledgements</mdc-text>
+        <mdc-text typo='headline4'>{{ $t('aboutAcknowledgements') }}</mdc-text>
       </mdc-layout-cell>
       <mdc-layout-cell desktop=3 v-for="ack in acknowledgements" :key="ack.name" class="acknowledgement">
         <div class="logo" :style="{ backgroundImage: 'url(\'' + ack.logo + '\')' }"></div>

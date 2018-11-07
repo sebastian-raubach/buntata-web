@@ -10,6 +10,10 @@ import router from './router'
 import store from './store/store'
 import VueAnalytics from 'vue-analytics'
 import Mixin from './Mixin.js'
+import { i18n } from './plugins/i18n.js'
+import FlagIcon from 'vue-flag-icon'
+
+Vue.use(FlagIcon)
 
 // Make sure jQuery is available
 Vue.use({
@@ -44,6 +48,7 @@ Vue.mixin(Mixin)
 new Vue({
   el: '#app',
   router: router,
+  i18n: i18n,
   store: store,
   template: '<App/>',
   components: { App }

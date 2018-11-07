@@ -1,7 +1,7 @@
 <template>
   <mdc-layout-grid>
     <mdc-layout-cell desktop=12 tablet=8>
-      <mdc-text typo='headline3'>Please select a node:</mdc-text>
+      <mdc-text typo='headline3'>{{ $t('catalogueTitle') }}</mdc-text>
     </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
       <Node :node="node" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(node)"></Node>

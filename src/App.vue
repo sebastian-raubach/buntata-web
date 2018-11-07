@@ -6,6 +6,12 @@
           <mdc-toolbar-menu-icon event="toggle-drawer"></mdc-toolbar-menu-icon>
           <mdc-toolbar-title><router-link to="/" class="title">Buntata</router-link></mdc-toolbar-title>
         </mdc-toolbar-section>
+        <mdc-toolbar-section align-end>
+          <mdc-toolbar-icon icon="language" @click="open=true"></mdc-toolbar-icon>
+          <mdc-menu v-model="open" @select="onSelect">
+            <mdc-menu-item v-for="language in languages" :key="language.locale"><flag :squared="false" :iso="language.flag" class="flag-icon" />{{ language.name }}</mdc-menu-item>
+          </mdc-menu>
+        </mdc-toolbar-section>
       </mdc-toolbar-row>
     </mdc-toolbar>
     <mdc-drawer slot="drawer" toggle-on="toggle-drawer" temporary>
@@ -13,15 +19,15 @@
         <img src="./assets/logo.svg" id="logo">
       </mdc-drawer-header>
       <mdc-drawer-list>
-          <mdc-drawer-item start-icon="home" to="/">Home</mdc-drawer-item>
-          <mdc-drawer-item start-icon="view_list" to="/datasource">Datasources</mdc-drawer-item>
-          <mdc-drawer-item start-icon="chrome_reader_mode" to="/catalogue">Catalogue</mdc-drawer-item>
-          <mdc-drawer-item start-icon="info" to="/about">About</mdc-drawer-item>
+          <mdc-drawer-item start-icon="home" to="/">{{ $t('menuHome') }}</mdc-drawer-item>
+          <mdc-drawer-item start-icon="view_list" to="/datasource">{{ $t('menuDatasources') }}</mdc-drawer-item>
+          <mdc-drawer-item start-icon="chrome_reader_mode" to="/catalogue">{{ $t('menuCatalogue') }}</mdc-drawer-item>
+          <mdc-drawer-item start-icon="info" to="/about">{{ $t('menuAbout') }}</mdc-drawer-item>
       </mdc-drawer-list>
     </mdc-drawer>
     <main class="content" >
       <div id="app">
-        <div id="ie-banner" class="mdc-elevation mdc-elevation--z1"><mdi-alert-icon/><span>Buntata Web does not support Internet Explorer. Please install a modern web browser.</span> <a href="http://outdatedbrowser.com" target="_blank">Options are available here.</a><mdi-alert-icon/></div>
+        <div id="ie-banner" class="mdc-elevation mdc-elevation--z1"><mdi-alert-icon/><span v-html="$t('warningIE')" /><mdi-alert-icon/></div>
         <router-view :key="$route.path"/>
       </div>
     </main>
@@ -44,6 +50,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   require('mdi-vue/EarthIcon')
   require('mdi-vue/EmailIcon')
   require('mdi-vue/TwitterIcon')
@@ -56,7 +63,42 @@
 
   export default {
     name: 'app',
+    data: function () {
+      return {
+        open: false,
+        languages: [{
+          locale: 'en_GB',
+          flag: 'gb',
+          name: 'British English'
+        }, {
+          locale: 'de_DE',
+          flag: 'de',
+          name: 'Deutsch - Deutschland'
+        }]
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'locale'
+      ])
+    },
+    methods: {
+      onSelect: function (locale) {
+        this.$i18n.locale = this.languages[locale.index].locale
+        this.$store.dispatch('ON_LOCALE_CHANGED', this.languages[locale.index].locale)
+      }
+    },
     mounted: function () {
+      if (this.locale) {
+        var vm = this
+        this.$i18n.locale = this.languages.map(function (l) {
+          return l.locale
+        })
+        .filter(function (l) {
+          return vm.locale === l
+        })
+      }
+
       var ua = navigator.userAgent
       var isIe = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
 
@@ -178,5 +220,9 @@
     color: inherit;
     text-decoration: none;
     font-weight: inherit;
+  }
+
+  .flag-icon {
+    margin-right: 10px;
   }
 </style>

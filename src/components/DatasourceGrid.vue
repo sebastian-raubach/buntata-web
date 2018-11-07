@@ -1,7 +1,7 @@
 <template>
   <mdc-layout-grid>
     <mdc-layout-cell desktop=12 tablet=8>
-      <mdc-text typo='headline3'>Please select a data source:</mdc-text>
+      <mdc-text typo='headline3'>{{ $t('datasourceGridTitle') }}</mdc-text>
     </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="datasource in datasources" :key="datasource.id">
       <datasource :datasource="datasource" :selected="isSelectedDatasource(datasource)" :base-url="baseUrl"></datasource>

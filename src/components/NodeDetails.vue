@@ -21,7 +21,7 @@
         </mdc-list> 
       </mdc-layout-cell>
       <mdc-layout-cell desktop=12 tablet=8 phone=4 v-if="node.similarNodes.length > 0">
-        <mdc-text typo='headline4'>Similar items</mdc-text>
+        <mdc-text typo='headline4'>{{ $t('nodeDetailsSimilarNodesTitle') }}</mdc-text>
         <mdc-layout-inner-grid>
           <mdc-layout-cell v-for="similar in node.similarNodes" :key="similar.id">
             <node :node="similar" :showKeyName="true" :base-url="baseUrl" @click.native="onNodeClicked(similar)"></node>
@@ -29,7 +29,7 @@
         </mdc-layout-inner-grid>
       </mdc-layout-cell>
     </mdc-layout-grid>
-    <mdc-text typo='headline3' v-else>No data found.</mdc-text>
+    <mdc-text typo='headline3' v-else>{{ $t('genericNoDataFound') }}</mdc-text>
   </div>
 </template>
 
@@ -102,7 +102,6 @@
         var vm = this
         // Request the data
         this.getJSON(this.baseUrl + 'node/' + this.$route.params.id, function (data) {
-          console.log(data)
           if (data.length === 1) {
             vm.node = data[0]
             vm.onDatasourceSelected()
@@ -139,21 +138,6 @@
     background: center / cover;
     height: 300px;
     width: 100%;
-  }
-  .owl-stage {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-  }
-  .owl-item {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    height: auto !important;
   }
   .image > .copyright {
     position: absolute;

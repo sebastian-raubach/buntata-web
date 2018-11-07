@@ -2,8 +2,8 @@
   <mdc-layout-grid>
     <mdc-layout-cell desktop=12 tablet=8>
       <mdc-text typo='headline3' v-if="datasource">{{ datasource.name }}</mdc-text>
-      <mdc-text typo='headline3' v-else>>No data source selected</mdc-text>
-      <mdc-text typo='headline6'>Select the item that you want to investigate.</mdc-text>
+      <mdc-text typo='headline3' v-else>>{{ $t('warningNoDatasourceSelected') }}</mdc-text>
+      <mdc-text typo='headline6'>{{ $t('nodeGridTitle') }}</mdc-text>
     </mdc-layout-cell>
     <mdc-layout-cell desktop=3 v-for="node in nodes" :key="node.id">
       <Node :node="node" :showKeyName="false" :base-url="baseUrl" @click.native="onNodeClicked(node)"></Node>
