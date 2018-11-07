@@ -1,5 +1,4 @@
 {
-  "menuHome": "Home",
   "menuDatasources": "Data sources",
   "menuCatalogue": "Catalogue",
   "menuAbout": "About",
@@ -11,19 +10,20 @@
   "aboutTextThree": "We would welcome comments, feedback and contributions to this data resource. Feel free to contact us using any of the methods below.",
   "aboutThanksTo": "We would like to thank John Jones, Ian Toth, Jennie Brierley, Alison Lees, Graham Cowan, Sonia Humphris and Roy Neilson for their help in getting the underlying potato dataset and images brought together and assembled. In addition, we appreciate the images and information provided by Danny Coyne and Sue Hockland.",
   "aboutAcknowledgements": "Acknowledgements",
-  "linkTextGooglePlay": "Google Play",
-  "linkTextGitHub": "GitHub",
   "linkTextEmail": "Email",
-  "linkTextTwitter": "Twitter",
   "linkTextWebsite": "Website",
   "catalogueTitle": "Please select a node:",
   "datasourceGridTitle": "Please select a data source:",
   "datasourceDescription": "Description",
   "datasourceProvider": "Provider",
-  "datasourceVersion": "Version",
   "datasourceContact": "Contact",
   "datasourceUpdatedOn": "Updated on",
   "genericNoDataFound": "No data found.",
   "nodeDetailsSimilarNodesTitle": "Similar items",
-  "nodeGridTitle": "Select the item that you want to investigate."
+  "nodeGridTitle": "Select the item that you want to investigate.",
+  "menuHome": "Home",
+  "linkTextGooglePlay": "Google Play",
+  "linkTextGitHub": "GitHub",
+  "linkTextTwitter": "Twitter",
+  "datasourceVersion": "Version"
 }
