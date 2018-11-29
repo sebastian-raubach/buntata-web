@@ -9,15 +9,6 @@ import NodeGrid from '@/components/NodeGrid'
 
 Vue.use(Router)
 
-var baseUrl
-
-// Set base URL based on environment
-if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://localhost:8080/buntata/v1.1/'
-} else {
-  baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
-}
-
 // Handle page navigation
 export default new Router({
   routes: [
@@ -25,37 +16,37 @@ export default new Router({
       path: '/datasource',
       name: 'datasource',
       component: DatasourceGrid,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     },
     {
       path: '/catalogue',
       name: 'catalogue',
       component: Catalogue,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     },
     {
       path: '/detail/:id',
       name: 'nodedetails',
       component: NodeDetails,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     },
     {
       path: '/about',
       name: 'about',
       component: About,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     },
     {
       path: '/',
       name: 'nodegrid',
       component: NodeGrid,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     },
     {
       path: '/:parent_id',
       name: 'nodegrid-with-parent',
       component: NodeGrid,
-      props: { baseUrl: baseUrl }
+      props: { baseUrl: null }
     }
   ],
   scrollBehavior (to, from, savedPosition) {

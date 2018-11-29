@@ -13,6 +13,18 @@ import Mixin from './Mixin.js'
 import { i18n } from './plugins/i18n.js'
 import FlagIcon from 'vue-flag-icon'
 
+// Set base URL based on environment
+var baseUrl
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = 'http://localhost:8080/buntata/v1.1/'
+} else {
+  baseUrl = 'https://ics.hutton.ac.uk/buntata/v1.1/'
+}
+
+router.options.routes.forEach(function (r) {
+  r.props.baseUrl = baseUrl
+})
+
 Vue.use(FlagIcon)
 
 // Make sure jQuery is available
@@ -51,5 +63,12 @@ new Vue({
   i18n: i18n,
   store: store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  render (h) {
+    return h(App, {
+      props: {
+        baseUrl: 'http://localhost:8080/buntata/v1.1/'
+      }
+    })
+  }
 })

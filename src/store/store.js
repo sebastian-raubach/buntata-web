@@ -8,12 +8,14 @@ const store = new Vuex.Store({
   state: {
     datasource: null,
     locale: null,
-    searchTerm: null
+    searchTerm: null,
+    token: null
   },
   getters: {
     datasource: state => state.datasource,
     locale: state => state.locale,
-    searchTerm: state => state.searchTerm
+    searchTerm: state => state.searchTerm,
+    token: state => state.token
   },
   actions: {
     ON_DATASOURCE_CHANGED: function ({ commit }, datasource) {
@@ -24,6 +26,9 @@ const store = new Vuex.Store({
     },
     ON_SEARCH_TERM_CHANGED: function ({ commit }, searchTerm) {
       commit('ON_SEARCH_TERM_CHANGED_MUTATION', searchTerm)
+    },
+    ON_TOKEN_CHANGED: function ({ commit }, token) {
+      commit('ON_TOKEN_CHANGED_MUTATION', token)
     }
   },
   mutations: {
@@ -35,6 +40,9 @@ const store = new Vuex.Store({
     },
     ON_SEARCH_TERM_CHANGED_MUTATION: function (state, newSearchTerm) {
       state.searchTerm = newSearchTerm
+    },
+    ON_TOKEN_CHANGED_MUTATION: function (state, newToken) {
+      state.token = newToken
     }
   },
   plugins: [

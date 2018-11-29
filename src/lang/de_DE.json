@@ -20,5 +20,6 @@
   "datasourceUpdatedOn": "Aktualisiert am",
   "genericNoDataFound": "Keine Daten gefunden.",
   "nodeDetailsSimilarNodesTitle": "Ähnliche Objekte",
-  "nodeGridTitle": "Wählen Sie das Element, das Sie untersuchen möchten."
+  "nodeGridTitle": "Wählen Sie das Element, das Sie untersuchen möchten.",
+  "errorInvalidCredentials": "Falsche Benutzeranmeldedaten."
 }

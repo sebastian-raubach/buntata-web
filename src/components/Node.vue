@@ -3,6 +3,12 @@
     <mdc-card-primary-action>
       <mdc-card-media :src="getImage()"></mdc-card-media>
       <mdc-card-header class="node-header" v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+      <mdc-card-actions v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}" v-if="token" >
+        <mdc-card-action-icons>
+          <mdc-card-action-icon icon="edit" @click.native="onNodeClicked"/>
+          <mdc-card-action-icon icon="delete" @click.native="onDeleteClicked"/>
+        </mdc-card-action-icons>
+      </mdc-card-actions>
     </mdc-card-primary-action>
   </mdc-card>
 </template>
@@ -27,11 +33,20 @@
         } else {
           return ''
         }
+      },
+      onNodeClicked (e) {
+        e.stopPropagation()
+        this.$router.push('/detail/' + this.node.id)
+      },
+      onDeleteClicked (e) {
+        e.stopPropagation()
+        this.$emit('node-deleted', this.node)
       }
     },
     computed: {
       ...mapGetters([
-        'datasource'
+        'datasource',
+        'token'
       ])
     },
     mounted: function () {

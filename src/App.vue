@@ -7,8 +7,9 @@
           <mdc-toolbar-title><router-link to="/" class="title">Buntata</router-link></mdc-toolbar-title>
         </mdc-toolbar-section>
         <mdc-toolbar-section align-end>
-          <mdc-toolbar-icon icon="language" @click="open=true"></mdc-toolbar-icon>
-          <mdc-menu v-model="open" @select="onSelect">
+          <mdc-toolbar-icon icon="person" @click="dialogOpen=true"></mdc-toolbar-icon>
+          <mdc-toolbar-icon icon="language" @click="languageMenuOpen=true"></mdc-toolbar-icon>
+          <mdc-menu v-model="languageMenuOpen" @select="onSelect">
             <mdc-menu-item v-for="language in languages" :key="language.locale"><flag :squared="false" :iso="language.flag" class="flag-icon" />{{ language.name }}</mdc-menu-item>
           </mdc-menu>
         </mdc-toolbar-section>
@@ -46,6 +47,11 @@
         <mdc-button class="social-button website" v-on:click="openUrl('https://ics.hutton.ac.uk/get-buntata', true)"><mdi-earth-icon /></mdc-button>
       </mdc-layout-cell>
     </mdc-layout-grid>
+
+    <mdc-dialog v-model="dialogOpen" accent :title="$t('dialogLoginTitle')" :accept="$t('buttonLogin')" :cancel="$t('buttonCancel')" @accept="onLogin" @validate="validateLogin">
+      <mdc-textfield v-model="login.username" fullwidth label="Username" />
+      <mdc-textfield v-model="login.password" fullwidth type="password" label="Password" />
+    </mdc-dialog>
   </mdc-layout-app>
 </template>
 
@@ -65,7 +71,12 @@
     name: 'app',
     data: function () {
       return {
-        open: false,
+        languageMenuOpen: false,
+        dialogOpen: false,
+        login: {
+          username: null,
+          password: null
+        },
         languages: [{
           locale: 'en_GB',
           flag: 'gb',
@@ -77,6 +88,7 @@
         }]
       }
     },
+    props: [ 'baseUrl' ],
     computed: {
       ...mapGetters([
         'locale'
@@ -86,6 +98,29 @@
       onSelect: function (locale) {
         this.$i18n.locale = this.languages[locale.index].locale
         this.$store.dispatch('ON_LOCALE_CHANGED', this.languages[locale.index].locale)
+      },
+      onLogin: function () {
+        this.login.username = null
+        this.login.password = null
+      },
+      validateLogin: function ({ accept }) {
+        var vm = this
+
+        var user = {
+          username: this.login.username,
+          password: this.login.password
+        }
+
+        // Then send the request
+        this.authAjax(this.baseUrl + 'token', 'POST', user, 'json', function (result) {
+          // If it's successful, finally store them
+          vm.$store.dispatch('ON_TOKEN_CHANGED', result)
+          // Then accept the dialog
+          accept()
+        }, function () {
+          // If they're wrong, remove
+          vm.$store.dispatch('ON_TOKEN_CHANGED', null)
+        })
       }
     },
     mounted: function () {
@@ -106,6 +141,13 @@
         $('#ie-banner').show()
       } else {
         $('#ie-banner').remove()
+      }
+
+      // Check if the token is still valid
+      var t = this.$store.getters.token
+      if (t && ((new Date().getTime() - new Date(t.createdOn).getTime()) > t.lifetime)) {
+        t = null
+        this.$store.dispatch('ON_TOKEN_CHANGED', t)
       }
     }
   }
@@ -208,6 +250,7 @@
     width: 285px;
     height: 285px;
     max-width: 100%;
+    max-height: 100%;
     box-sizing: border-box;
   }
 
