@@ -22,7 +22,7 @@
       <mdc-textfield v-model="newDatasource.dataProvider" fullwidth :label="$t('labelDataProvider')" required />
       <mdc-textfield v-model="newDatasource.contact" fullwidth :label="$t('labelContact')" required />
 
-      <h4 :v-text="$t('labelIcon')"></h4>
+      <h4 v-text="$t('labelIcon')"></h4>
       <img class="logo-preview" v-if="newDatasource.imageUrl.length > 0" :src="newDatasource.imageUrl" />
       <input type="file" @change="onFileChange($event.target.name, $event.target.files)" accept=".png,.jpg,.jpeg" />
     </mdc-dialog>

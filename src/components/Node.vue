@@ -1,8 +1,12 @@
 <template>
   <mdc-card class="node">
     <mdc-card-primary-action>
+      <!-- Image -->
       <mdc-card-media :src="getImage()"></mdc-card-media>
+      <!-- Heading -->
       <mdc-card-header class="node-header" v-if="datasource.showKeyName || showKeyName" :title="node.name" v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}"></mdc-card-header>
+      
+      <!-- Actions for admins -->
       <mdc-card-actions v-bind:style="{ 'background-color': backgroundColor, 'color': foregroundColor}" v-if="token" >
         <mdc-card-action-icons>
           <mdc-card-action-icon icon="edit" @click.native="onNodeClicked"/>

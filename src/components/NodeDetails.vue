@@ -59,9 +59,12 @@
 
       <!-- Add image dialog -->
       <mdc-dialog v-model="imageDialogOpen" accent :title="$t('dialogImageAddTitle')" :accept="$t('buttonAdd')" :cancel="$t('buttonCancel')" @accept="addImage" @validate="validateImage">
-        <h4 :v-text="$t('labelImage')"></h4>
+        <h4 v-text="$t('labelImage')"></h4>
+        <p v-text="$t('labelUploadNewImage')"></p>
         <img class="image-preview" v-if="newImage.imageUrl.length > 0" :src="newImage.imageUrl" />
         <input type="file" @change="onFileChange($event.target.name, $event.target.files)" accept=".png,.jpg,.jpeg" />
+        <p v-text="$t('labelSelectExistingImage')"></p>
+        <MediaSelector :baseUrl="baseUrl" v-on:media-selected="(medium) => onMediumSelected(medium)"/>
       </mdc-dialog>
       <!-- Add attribute dialog -->
       <mdc-dialog v-model="attributeDialogOpen" accent :title="$t('dialogAttributeAddTitle')" :accept="$t('buttonAdd')" :cancel="$t('buttonCancel')" @accept="addAttribute" @validate="validateAttribute">
@@ -97,6 +100,7 @@
   import debounce from 'lodash.debounce'
 
   import AddCard from '@/components/AddCard'
+  import MediaSelector from '@/components/MediaSelector'
   import Node from '@/components/Node'
   import vSelect from 'vue-select'
 
@@ -127,6 +131,7 @@
     },
     components: {
       Node,
+      MediaSelector,
       AddCard,
       Carousel,
       Slide,
@@ -162,6 +167,21 @@
           this.newImage.image = ''
           this.newImage.imageUrl = ''
         }
+      },
+      onMediumSelected (medium) {
+        var vm = this
+
+        var nodeMedia = {
+          nodeId: this.node.id,
+          mediaId: medium.id
+        }
+
+        // Send the request to create the image
+        vm.authAjax(vm.baseUrl + 'node/' + this.node.id + '/media', 'PUT', nodeMedia, 'json', function (result) {
+          // Once this comes back, update the display
+          vm.imageDialogOpen = false
+          vm.update()
+        })
       },
       // Initiate similar node search
       onSearchSimilar (search, loading) {
@@ -272,7 +292,13 @@
       // Delete an image
       deleteImage: function (image) {
         var vm = this
-        this.authAjax(this.baseUrl + 'media/' + image.id, 'DELETE', null, 'json', function (result) {
+
+        var nodeMedia = {
+          nodeId: this.node.id,
+          mediaId: image.id
+        }
+
+        this.authAjax(this.baseUrl + 'node/' + this.node.id + '/media', 'DELETE', nodeMedia, 'json', function (result) {
           vm.update()
         })
       },

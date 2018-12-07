@@ -52,5 +52,7 @@
   "labelContact": "Contact",
   "labelIcon": "Icon",
   "labelImage": "Image",
+  "labelUploadNewImage": "Upload new image",
+  "labelSelectExistingImage": "Select existing image",
   "hintSearchSimilarNodes": "Type to search nodes..."
 }

@@ -22,7 +22,7 @@
       <mdc-textfield v-model="newNode.name" fullwidth :label="$t('labelName')" required />
       <mdc-textfield v-model="newNode.description" fullwidth :label="$t('labelDescription')" />
 
-      <h4 :v-text="$t('labelImage')"></h4>
+      <h4 v-text="$t('labelImage')"></h4>
       <img class="image-preview" v-if="newNode.imageUrl.length > 0" :src="newNode.imageUrl" />
       <input type="file" @change="onFileChange($event.target.name, $event.target.files)" accept=".png,.jpg,.jpeg" />
     </mdc-dialog>
